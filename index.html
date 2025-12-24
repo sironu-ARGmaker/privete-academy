@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>私立( )学園 公式サイト</title>
+    <style>
+        /* CSS: ここで見栄えを整えます */
+        body { font-family: "serif"; background-color: #f4f4f4; color: #333; margin: 0; }
+        header { background-color: #002147; color: white; padding: 2rem; text-align: center; }
+        nav { background: #eee; padding: 10px; text-align: center; }
+        nav a { margin: 0 15px; text-decoration: none; color: #002147; font-weight: bold; }
+        .main-content { max-width: 800px; margin: 20px auto; padding: 20px; background: white; }
+        .search-section { border: 2px solid #002147; padding: 20px; margin-top: 40px; background: #eef; }
+        footer { font-size: 0.8rem; text-align: center; margin-top: 50px; color: #888; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>私立( )学園</h1>
+    <p>〜未来を切り拓く、静謐なる学び舎〜</p>
+</header>
+
+<nav>
+    <a href="#">MAIN</a> | <a href="#">教職員紹介</a> | <a href="#">教育理念</a> | <a href="#">FAQ</a>
+</nav>
+
+<div class="main-content">
+    <h2>お知らせ</h2>
+    <p>2023.10.27：秋季清掃活動について</p>
+    <p>2023.10.20：【重要】夜間の校内立ち入り制限について</p>
+
+    <!-- 検索ギミック -->
+    <div class="search-section">
+        <h3>学園内資料検索システム</h3>
+        <input type="text" id="searchInput" placeholder="キーワードを入力...">
+        <button onclick="executeSearch()">検索</button>
+    </div>
+</div>
+
+<footer>
+    <p>※このサイトはフィクションであり、実在の人物・団体とは一切関係ありません。</p>
+    <p>制作・運営：sironu</p>
+</footer>
+
+<script>
+    // JavaScript: ここにギミックを書きます
+    function executeSearch() {
+        const query = document.getElementById('searchInput').value.trim();
+        
+        // 例：レベル1の検索
+        if (query === "武田悠馬") {
+            alert("機密レベル1：生徒情報を表示します。");
+            // location.href = "7a2f9k1/index.html"; // 後でフォルダを作ったら有効にする
+        } else {
+            alert("該当する資料は見つかりませんでした。");
+        }
+    }
+</script>
+
+</body>
+</html>
