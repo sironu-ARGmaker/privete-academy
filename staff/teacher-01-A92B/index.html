@@ -6,13 +6,20 @@
     <style>
         body { font-family: "serif"; background-color: #f8f9fa; color: #333; margin: 0; padding-bottom: 100px; }
         header { background-color: #002147; color: white; padding: 20px; text-align: center; }
+        
+        /* ナビゲーションのレイアウト修正 */
         nav { 
             background: #f1f1f1; padding: 10px 20px; display: flex; 
             justify-content: space-between; align-items: center; 
             border-bottom: 2px solid #002147; 
         }
         .nav-links a { margin-right: 20px; text-decoration: none; color: #002147; font-weight: bold; }
-        
+
+        /* 検索窓のスタイルを追加（これが抜けていました） */
+        .search-box { display: flex; align-items: center; }
+        .search-box input { padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px 0 0 4px; outline: none; }
+        .search-box button { padding: 5px 15px; background: #002147; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+
         .container { max-width: 800px; margin: 30px auto; padding: 40px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         .profile-header { display: flex; align-items: center; border-bottom: 2px solid #002147; padding-bottom: 20px; margin-bottom: 20px; }
         .photo-large { width: 200px; height: 250px; background: #eee; margin-right: 30px; display: flex; align-items: center; justify-content: center; color: #aaa; }
@@ -26,7 +33,9 @@
             background: rgba(0, 33, 71, 0.9); color: #fff; padding: 10px 20px;
             border-radius: 5px; border-left: 5px solid #ff0000; font-family: monospace;
         }
-        .clue { color: #fff; } /* 隠しテキスト用（マウスで反転させると見える） */
+        /* 白く消したヒント（マウスでなぞると見える） */
+        .clue { color: #fff; background-color: #fff; } 
+        .clue:selection { background-color: #ff0000; color: #fff; } /* 選択した時だけ見える演出 */
     </style>
 </head>
 <body>
@@ -35,11 +44,17 @@
 
 <nav>
     <div class="nav-links">
-        <a href="index.html">MAIN</a>
-        <a href="staff.html">教職員紹介</a>
-        <a href="educational.html">教育理念</a>
-        <a href="club.html">部活動</a>
-        <a href="faq.html">FAQ</a>
+        <!-- すべて「../../」を足して、2つ上の階層のファイルを指定します -->
+        <a href="../../index.html">MAIN</a>
+        <a href="../../staff.html">教職員紹介</a>
+        <a href="../../educational.html">教育理念</a>
+        <a href="../../club.html">部活動</a>
+        <a href="../../faq.html">FAQ</a>
+    </div>
+    <!-- 検索窓のHTMLを追加しました -->
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="資料を検索...">
+        <button onclick="executeSearch()">検索</button>
     </div>
 </nav>
 
@@ -65,7 +80,7 @@
         <h3>お知らせ・更新履歴</h3>
         <ul>
             <li>2023.09.01：今年度の教育方針を更新しました。</li>
-            <span class="clue"><li>2023.08.15：地下保管庫の鍵番号を変更：0412</span></li>
+            <li class="clue">2023.08.15：地下保管庫の鍵番号を変更：0412</li>
         </ul>
     </div>
 </div>
@@ -73,35 +88,25 @@
 <div id="level-indicator">SECURITY CLEARANCE: LEVEL 0</div>
 
 <script>
-    // 検索ロジック
     function executeSearch() {
-    const input = document.getElementById('searchInput').value.trim();
-    if (!input) return; // 空なら何もしない
+        const input = document.getElementById('searchInput').value.trim();
+        if (!input) return;
 
-    const words = input.replace(/　/g, " ").split(" ");
+        const words = input.replace(/　/g, " ").split(" ");
 
-    // --- ここに「正解」のパターンを書いていく ---
-    
-    // パターン1：武田悠馬（1ワード）
-    if (words.length === 1 && words[0] === "武田悠馬") {
-        // window.location.href = "7a2f9k1/index.html"; // 正解ページへ
-        return;
-    }
+        // ジャンプ先にも「../../」をつけます
+        if (words.length === 1 && words[0] === "武田悠馬") {
+            window.location.href = "../../7a2f9k1/index.html";
+            return;
+        }
 
-    // パターン3：2ワード（例）
-    if (words.length >= 2 && words.includes("地下") && words.includes("儀式")) {
-        // window.location.href = "secret/ritual/index.html";
-        return;
-    }
+        if (words.length >= 2 && words.includes("地下") && words.includes("儀式")) {
+            window.location.href = "../../secret/ritual/index.html";
+            return;
+        }
 
-    // --- すべての正解に当てはまらなかった場合、エラーページへ飛ばす ---
-    // その際、検索ワードをURLにくっつけて送る（ ?q=ワード ）
-    window.location.href = "search_notfound.html?q=" + encodeURIComponent(input);
-}
-
-    // レベル表示を動的に変える関数（後のページで使う用）
-    function setLevel(lv) {
-        document.getElementById('level-value').innerText = "LEVEL " + lv;
+        // 失敗時
+        window.location.href = "../../search_notfound.html?q=" + encodeURIComponent(input);
     }
 </script>
 </body>
