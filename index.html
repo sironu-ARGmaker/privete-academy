@@ -98,27 +98,29 @@
 <script>
     // 検索ロジック
     function executeSearch() {
-        const input = document.getElementById('searchInput').value.trim();
-        // 2ワード検索の対応
-        const words = input.replace(/　/g, " ").split(" ");
+    const input = document.getElementById('searchInput').value.trim();
+    if (!input) return; // 空なら何もしない
 
-        if (words.length === 1) {
-            if (words[0] === "武田悠馬") {
-                alert("該当する生徒の個人記録にアクセスします。");
-                // location.href = "7a2f9k1/index.html";
-            } else {
-                alert("該当なし");
-            }
-        } else if (words.length >= 2) {
-            // 例：ワード1とワード2が特定の組み合わせの時
-            if (words.includes("地下") && words.includes("儀式")) {
-                alert("機密情報にアクセスしました。");
-                // location.href = "secret-path/index.html";
-            } else {
-                alert("複合条件に一致する資料は見つかりませんでした。");
-            }
-        }
+    const words = input.replace(/　/g, " ").split(" ");
+
+    // --- ここに「正解」のパターンを書いていく ---
+    
+    // パターン1：武田悠馬（1ワード）
+    if (words.length === 1 && words[0] === "武田悠馬") {
+        // window.location.href = "7a2f9k1/index.html"; // 正解ページへ
+        return;
     }
+
+    // パターン3：2ワード（例）
+    if (words.length >= 2 && words.includes("地下") && words.includes("儀式")) {
+        // window.location.href = "secret/ritual/index.html";
+        return;
+    }
+
+    // --- すべての正解に当てはまらなかった場合、エラーページへ飛ばす ---
+    // その際、検索ワードをURLにくっつけて送る（ ?q=ワード ）
+    window.location.href = "search_notfound.html?q=" + encodeURIComponent(input);
+}
 
     // レベル表示を動的に変える関数（後のページで使う用）
     function setLevel(lv) {
