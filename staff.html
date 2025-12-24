@@ -32,7 +32,8 @@
             border-radius: 5px; border-left: 5px solid #ff0000; font-family: monospace; z-index: 1000;
         }
     </style>
-
+</head>
+<body>
 
 <header>
     <h1>私立( )学園</h1>
@@ -42,9 +43,8 @@
     <div class="nav-links">
         <a href="index.html">MAIN</a>
         <a href="staff.html">教職員紹介</a>
-        <a href="educational.html">教育理念</a>
-        <a href="club.html">部活動</a>
-        <a href="faq.html">FAQ</a>
+        <a href="#">教育理念</a>
+        <a href="#">FAQ</a>
     </div>
     <div class="search-box">
         <input type="text" id="searchInput" placeholder="資料を検索...">
@@ -58,18 +58,19 @@
     <hr>
 
     <div class="teacher-grid">
-        <!-- 01番の先生：リンクを追加 -->
-        <a href="staff/teacher-01-A92B/index.html" style="text-decoration: none; color: inherit;">
-            <div class="teacher-card">
-                <div class="teacher-photo">PHOTO</div>
-                <div class="teacher-info">
-                    <span class="teacher-id">ID: teacher-01-A92B</span>
-                    <h3>山田 太郎</h3>
-                    <span class="teacher-subject">校長 / 地理歴史</span>
-                    <p>生徒一人ひとりの個性を尊重し、共に歩んでまいります。</p>
-                </div>
+        <!-- 01 -->
+        <div class="teacher-card">
+            <div class="teacher-photo">PHOTO</div>
+            <div class="teacher-info">
+                <span class="teacher-id">ID: teacher-01-A92B</span>
+                <h3>山田 太郎</h3>
+                <span class="teacher-subject">校長 / 地理歴史</span>
+                <p>生徒一人ひとりの個性を尊重し、共に歩んでまいります。</p>
             </div>
-        </a>
+        </div>
+
+        <!-- 07まで同様に続く... -->
+        <!-- (中略) -->
 
         <!-- 07 -->
         <div class="teacher-card">
@@ -98,38 +99,52 @@
 
 <div id="level-indicator">SECURITY CLEARANCE: LEVEL 0</div>
 
-    <script>
-    // 検索ロジック
+<!-- ここからコピー -->
+<script>
     function executeSearch() {
-    const input = document.getElementById('searchInput').value.trim();
-    if (!input) return; // 空なら何もしない
+        // 1. 入力された値を取得
+        const input = document.getElementById('searchInput').value.trim();
+        
+        // 2. 空っぽなら何もしない
+        if (!input) return;
 
-    const words = input.replace(/　/g, " ").split(" ");
+        // 3. 空白（全角・半角）で区切って配列にする（2ワード検索対応）
+        const words = input.replace(/　/g, " ").split(" ");
 
-    // --- ここに「正解」のパターンを書いていく ---
-    
-    // パターン1：武田悠馬（1ワード）
-    if (words.length === 1 && words[0] === "武田悠馬") {
-        // window.location.href = "7a2f9k1/index.html"; // 正解ページへ
-        return;
+        // --- 検索ロジック ---
+
+        // 【レベル1：武田悠馬】
+        if (words.length === 1 && words[0] === "武田悠馬") {
+            // index.htmlと同じ階層にあるはずなので、パスに注意
+            window.location.href = "7a2f9k1/index.html"; 
+            return;
+        }
+
+        // 【レベル2：隠し教員のID】
+        if (words.length === 1 && words[0] === "teacher-08-X15J9") {
+            window.location.href = "staff/teacher-08-X15J9/index.html";
+            return;
+        }
+
+        // 【2ワード検索の例：地下 儀式】
+        if (words.length >= 2 && words.includes("地下") && words.includes("儀式")) {
+            // secretフォルダなどを作った場合
+            window.location.href = "secret/ritual/index.html";
+            return;
+        }
+
+        // --- すべて外れた場合は「検索失敗ページ」へ ---
+        // staff.htmlは一番上の階層にいる前提です
+        window.location.href = "search_notfound.html?q=" + encodeURIComponent(input);
     }
 
-    // パターン3：2ワード（例）
-    if (words.length >= 2 && words.includes("地下") && words.includes("儀式")) {
-        // window.location.href = "secret/ritual/index.html";
-        return;
-    }
-
-    // --- すべての正解に当てはまらなかった場合、エラーページへ飛ばす ---
-    // その際、検索ワードをURLにくっつけて送る（ ?q=ワード ）
-    window.location.href = "search_notfound.html?q=" + encodeURIComponent(input);
-}
-
-    // レベル表示を動的に変える関数（後のページで使う用）
-    function setLevel(lv) {
-        document.getElementById('level-value').innerText = "LEVEL " + lv;
-    }
+    // エンターキーでも検索できるようにする（おまけの親切機能）
+    document.getElementById('searchInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            executeSearch();
+        }
+    });
 </script>
-
-</head>
-<body>
+<!-- ここまでコピー -->
+</body>
+</html>
