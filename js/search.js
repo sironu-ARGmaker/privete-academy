@@ -2,13 +2,18 @@ const SEARCH_DATABASE = [
     {
         words: ["武田悠馬"],
         level: 1,
+        title: "生徒個人記録：武田 悠馬",
+        preview: "氏名：武田 悠馬 / 学籍番号：20230412...（クリックで詳細表示）",
         target: "7a2f9k1/index.html" 
     },
     {
         words: ["teacher-08-X15J9"],
         level: 2,
+        title: "教職員個人資料（秘）：HS-08",
+        preview: "管理ID：teacher-08-X15J9 / 担当：特別指導...（クリックで詳細表示）",
         target: "staff/teacher-08-X15J9/index.html"
     }
+    // 今後ここに title と preview を追加していきます
 ];
 
 function executeSearch() {
@@ -16,35 +21,18 @@ function executeSearch() {
     const input = inputElement.value.trim();
     if (!input) return;
 
-    const inputWords = input.replace(/　/g, " ").split(/\s+/);
-
-    // --- 自動階層計算ロジック ---
-    // 現在のページのパスから、ルート(index.htmlのある場所)までの戻り値を計算
-    // staff/teacher-01/index.html なら "../../" になる
+    // どの階層にいても search_results.html へ飛ばすための計算
     const path = window.location.pathname;
     const pathParts = path.split('/').filter(p => p !== "");
-    
-    // リポジトリ名「privete-academy」が含まれている場所を探す
     const repoIndex = pathParts.indexOf("privete-academy");
-    // リポジトリ名の後の階層数を数える
     const depth = pathParts.length - (repoIndex + 1) - 1;
-    
     const prefix = "../".repeat(Math.max(0, depth));
-    // ---------------------------
 
-    const match = SEARCH_DATABASE.find(entry => {
-        return entry.words.length === inputWords.length && 
-               entry.words.every(word => inputWords.includes(word));
-    });
-
-    if (match) {
-        localStorage.setItem('arg_current_level', Math.max(localStorage.getItem('arg_current_level') || 0, match.level));
-        window.location.href = prefix + match.target;
-    } else {
-        window.location.href = prefix + "search_notfound.html?q=" + encodeURIComponent(input);
-    }
+    // 検索ワードをURLにくっつけて、結果ページへ移動
+    window.location.href = prefix + "search_results.html?q=" + encodeURIComponent(input);
 }
 
+// レベル表示の更新（全ページ共通）
 window.addEventListener('DOMContentLoaded', () => {
     const lv = localStorage.getItem('arg_current_level') || 0;
     const indicator = document.getElementById('level-value');
