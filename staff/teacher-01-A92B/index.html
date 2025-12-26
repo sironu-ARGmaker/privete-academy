@@ -87,27 +87,6 @@
 
 <div id="level-indicator">SECURITY CLEARANCE: LEVEL 0</div>
 
-<script>
-    function executeSearch() {
-        const input = document.getElementById('searchInput').value.trim();
-        if (!input) return;
-
-        const words = input.replace(/　/g, " ").split(" ");
-
-        // ジャンプ先にも「../../」をつけます
-        if (words.length === 1 && words[0] === "武田悠馬") {
-            window.location.href = "../../7a2f9k1/index.html";
-            return;
-        }
-
-        if (words.length >= 2 && words.includes("地下") && words.includes("儀式")) {
-            window.location.href = "../../secret/ritual/index.html";
-            return;
-        }
-
-        // 失敗時
-        window.location.href = "../../search_notfound.html?q=" + encodeURIComponent(input);
-    }
-</script>
+<script src="../../js/search.js"></script>
 </body>
 </html>
