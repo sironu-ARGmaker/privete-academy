@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>検索結果 - 私立( )学園 データベース</title>
+    <style>
+        body { font-family: "serif"; background-color: #f0f0f0; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        /* 検索情報ヘッダー */
+        .search-info { background: #002147; color: white; padding: 20px; border-bottom: 4px solid #cc0000; margin-bottom: 30px; }
+        .query-tag { background: #cc0000; padding: 2px 8px; font-family: monospace; }
+
+        /* 結果カード（タブ形式） */
+        .result-item {
+            background: white;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.1s;
+            position: relative;
+        }
+        .result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #002147;
+        }
+        .result-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #002147;
+            text-decoration: underline;
+            margin-bottom: 10px;
+        }
+        .result-preview { font-size: 0.9rem; color: #666; line-height: 1.5; }
+        
+        /* カード内のレベル表示（フレーバー） */
+        .result-lv {
+            position: absolute; top: 10px; right: 15px;
+            font-size: 0.7rem; font-family: monospace; color: #aaa;
+        }
+
+        .no-result { background: white; padding: 50px; text-align: center; border: 1px solid #ccc; }
+        .btn-back { display: inline-block; margin-top: 20px; color: #002147; font-weight: bold; }
+        
+        #level-indicator { position: fixed; bottom: 20px; right: 20px; background: rgba(0, 33, 71, 0.9); color: #fff; padding: 10px 20px; border-radius: 5px; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="search-info">
+        <h2 style="margin:0;">学園資料データベース：検索結果</h2>
+        <p style="margin:10px 0 0 0;">キーワード: <span class="query-tag" id="display-query"></span></p>
+    </div>
+
+    <div id="results-container">
+        <!-- ここに結果カードが表示される -->
+    </div>
+
+    <div id="not-found" style="display:none;" class="no-result">
+        <h3>該当する資料は見つかりませんでした</h3>
+        <p>入力した単語に誤りがないか、または学園内の機密指定ワードである可能性があります。</p>
+        <a href="index.html" class="btn-back">← トップページへ戻る</a>
+    </div>
+</div>
+
+<div id="level-indicator">SECURITY CLEARANCE: <span id="level-value">LEVEL 0</span></div>
+
+<script src="js/search.js"></script>
+<script>
+    window.addEventListener('load', () => {
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get('q');
+        if (!query) return;
+
+        document.getElementById('display-query').innerText = query;
+        const inputWords = query.replace(/　/g, " ").split(/\s+/).filter(w => w !== "");
+
+        // データベースから一致をフィルタリング
+        const matches = SEARCH_DATABASE.filter(entry => {
+            // 入力された全ての単語が含まれているかチェック（順不同）
+            return inputWords.every(word => entry.words.includes(word));
+        });
+
+        const container = document.getElementById('results-container');
+        if (matches.length > 0) {
+            matches.forEach(match => {
+                const item = document.createElement('div');
+                item.className = 'result-item';
+                item.onclick = () => {
+                    // 到達レベルのみ記録して移動
+                    const currentLv = localStorage.getItem('arg_current_level') || 0;
+                    if (match.level > currentLv) localStorage.setItem('arg_current_level', match.level);
+                    window.location.href = match.target;
+                };
+                item.innerHTML = `
+                    <div class="result-lv">INFO LEVEL: ${match.level}</div>
+                    <div class="result-title">${match.title}</div>
+                    <div class="result-preview">${match.preview}</div>
+                `;
+                container.appendChild(item);
+            });
+        } else {
+            document.getElementById('not-found').style.display = 'block';
+        }
+    });
+</script>
+</body>
+</html>
