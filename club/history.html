@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>郷土史研究会 - 私立( )学園 部活動紹介</title>
+    <style>
+        body { font-family: "serif"; background-color: #f8f9fa; color: #333; margin: 0; padding-bottom: 100px; }
+        header { background-color: #002147; color: white; padding: 20px; text-align: center; }
+        nav { background: #f1f1f1; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #002147; }
+        .nav-links a { margin-right: 20px; text-decoration: none; color: #002147; font-weight: bold; }
+        .search-box { display: flex; }
+
+        .container { max-width: 800px; margin: 30px auto; padding: 40px; background: white; line-height: 1.8; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #002147; border-bottom: 2px solid #002147; }
+        .club-photo { width: 100%; height: 300px; background: #eee; margin: 20px 0; display: flex; align-items: center; justify-content: center; color: #888; border: 1px solid #ddd; }
+        
+        .research-log { background: #fffaf0; border: 1px solid #e0d0b0; padding: 20px; margin-top: 30px; }
+        .research-log h3 { margin-top: 0; font-size: 1.1rem; color: #5d4037; border-bottom: 1px solid #e0d0b0; }
+        
+        #level-indicator { position: fixed; bottom: 20px; right: 20px; background: rgba(0, 33, 71, 0.9); color: #fff; padding: 10px 20px; border-radius: 5px; border-left: 5px solid #ff0000; font-family: monospace; }
+        
+        /* 違和感演出用の強調 */
+        .keyword { font-weight: bold; border-bottom: 1px dotted #333; }
+    </style>
+</head>
+<body>
+
+<header><h1>私立( )学園</h1></header>
+
+<nav>
+    <div class="nav-links">
+        <a href="../index.html">MAIN</a>
+        <a href="../staff.html">教職員紹介</a>
+        <a href="../educational.html">教育理念</a>
+        <a href="../club.html">部活動</a>
+        <a href="../faq.html">FAQ</a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="資料を検索...">
+        <button onclick="executeSearch()">検索</button>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>郷土史研究会</h2>
+    <div class="club-photo">【写真：古びた石碑を調査する部員たち】</div>
+    
+    <p>
+        郷土史研究会は、当学園が位置するこの地の歴史、文化、そして学園自身の歩みを紐解くことを目的として活動しています。
+        私たちは、公的な記録から零れ落ちた「声」を拾い集め、後世に正しく伝えることを使命と考えています。
+    </p>
+
+    <div class="research-log">
+        <h3>今週の活動レポート：学園創設の謎</h3>
+        <p>
+            今年度は学園創立100周年にあたるため、創設者に関する史料を再編纂しています。調査の過程で、1924年（大正13年）の創立趣意書の中に、興味深い記述を発見しました。
+        </p>
+        <p>
+            「この地は古来より<span class="keyword">『ハコ』</span>と呼ばれ、山からの風を留める場所であった。学園の名称は、その守護神たる名から一字を拝借したものである」
+        </p>
+        <p>
+            しかし、奇妙なことに、その肝心の「神の名」の部分は、現在すべての公式文書において<span class="keyword">空白、あるいは括弧</span>で表現されています。なぜ、守護すべき名が伏せられるようになったのか。私たちはこの謎を追い続けています。
+        </p>
+    </div>
+
+    <h3 style="margin-top:40px;">部員募集中</h3>
+    <p>
+        古い地図の解読や、地元の古老への聞き取り調査に興味がある方は、ぜひ部室へお越しください。<br>
+        ※現在、一部の貴重資料は<span class="keyword">「特別管理室」</span>にて保管されており、閲覧には顧問の許可が必要です。
+    </p>
+</div>
+
+<div id="level-indicator">SECURITY CLEARANCE: LEVEL 0</div>
+
+<!-- 階層が一つ深いので ../js/search.js にする -->
+<script src="../js/search.js"></script>
+</body>
+</html>
