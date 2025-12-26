@@ -4,20 +4,61 @@
     <meta charset="UTF-8">
     <title>部活動紹介 - 私立( )学園</title>
     <style>
-        /* index.htmlと共通のデザイン */
+        /* 基本スタイル */
         body { font-family: "serif"; background-color: #f8f9fa; color: #333; margin: 0; padding-bottom: 100px; }
         header { background-color: #002147; color: white; padding: 20px; text-align: center; }
         nav { background: #f1f1f1; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #002147; position: sticky; top: 0; z-index: 100; }
         .nav-links a { margin-right: 20px; text-decoration: none; color: #002147; font-weight: bold; }
         .search-box { display: flex; }
-        .container { max-width: 900px; margin: 30px auto; padding: 40px; background: white; }
         
-        .club-section { margin-bottom: 40px; }
-        .club-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .club-card { border: 1px solid #ddd; padding: 15px; text-align: center; background: #fafafa; }
-        .club-card h4 { margin: 0 0 10px 0; color: #002147; border-bottom: 1px solid #002147; }
-        
-        #level-indicator { position: fixed; bottom: 20px; right: 20px; background: rgba(0, 33, 71, 0.9); color: #fff; padding: 10px 20px; border-radius: 5px; border-left: 5px solid #ff0000; font-family: monospace; }
+        .container { max-width: 1000px; margin: 30px auto; padding: 40px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #002147; border-bottom: 2px solid #002147; padding-bottom: 10px; }
+        h3 { margin-top: 40px; color: #444; border-left: 5px solid #002147; padding-left: 15px; }
+
+        /* グリッドレイアウト */
+        .club-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+            margin-top: 20px; 
+        }
+
+        /* 部活動カード */
+        .club-card {
+            border: 1px solid #eee;
+            padding: 20px;
+            background: #fafafa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100px;
+        }
+
+        .club-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #002147;
+            text-decoration: underline;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .club-name:hover { color: #cc0000; }
+
+        .club-theme {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* 隠しトリガー（文化部の6番目） */
+        .hidden-trigger {
+            min-height: 100px;
+            background: transparent;
+            cursor: default; /* 怪しまれないようカーソルは普通のまま */
+        }
+
+        #level-indicator { position: fixed; bottom: 20px; right: 20px; background: rgba(0, 33, 71, 0.9); color: #fff; padding: 10px 20px; border-radius: 5px; border-left: 5px solid #ff0000; font-family: monospace; z-index: 1000; }
     </style>
 </head>
 <body>
@@ -40,54 +81,68 @@
 
 <div class="container">
     <h2>部活動・同好会</h2>
-    <p>文武両道を掲げる当学園では、多くの生徒がいずれかの団体に所属し、日々研鑽を積んでいます。</p>
+    <p>当学園では、文武両道を重んじ、生徒一人ひとりの自主的な活動を奨励しています。</p>
 
-    <div class="club-section">
-        <h3>運動部</h3>
-        <div class="club-grid">
-            <div class="club-card"><h4>野球部</h4><p>甲子園出場を目指し、精神を鍛えます。</p></div>
-            <div class="club-card"><h4>弓道部</h4><p>静寂の中で己の魂と向き合います。</p></div>
-            <div class="club-card"><h4>陸上部</h4><p>限界を超え、次なる階梯を目指します。</p></div>
+    <!-- 運動部：6個 -->
+    <h3>運動部</h3>
+    <div class="club-grid">
+        <div class="club-card">
+            <a href="club/baseball.html" class="club-name">野球部</a>
+            <div class="club-theme">「不撓不屈」の精神で甲子園を目指す</div>
+        </div>
+        <div class="club-card">
+            <a href="club/kyudo.html" class="club-name">弓道部</a>
+            <div class="club-theme">静寂の中に真理を求める心身の練磨</div>
+        </div>
+        <div class="club-card">
+            <a href="club/track.html" class="club-name">陸上競技部</a>
+            <div class="club-theme">自己の限界を超え、0.01秒の先へ</div>
+        </div>
+        <div class="club-card">
+            <a href="club/tennis.html" class="club-name">テニス部</a>
+            <div class="club-theme">洗練された技術と紳士淑女のマナー</div>
+        </div>
+        <div class="club-card">
+            <a href="club/kendo.html" class="club-name">剣道部</a>
+            <div class="club-theme">交剣知愛、武道を通じた人格の形成</div>
+        </div>
+        <div class="club-card">
+            <a href="club/swim.html" class="club-name">水泳部</a>
+            <div class="club-theme">水との対話を通じ、強靭な体力を養う</div>
         </div>
     </div>
-        <h3>文化部</h3>
-        <div class="club-grid">
-            <!-- 1: 吹奏楽部 -->
-            <a href="club/brass.html" class="club-card">
-                <h4>吹奏楽部</h4>
-                <p>学園行事での演奏活動</p>
-            </a>
-            <!-- 2: 科学部 -->
-            <a href="club/science.html" class="club-card">
-                <h4>科学部</h4>
-                <p>自然科学の研究・実験</p>
-            </a>
-            <!-- 3: 茶道部 -->
-            <a href="club/tea.html" class="club-card">
-                <h4>茶道部</h4>
-                <p>伝統文化の継承と礼儀作法</p>
-            </a>
-            <!-- 4: 美術部 -->
-            <a href="club/art.html" class="club-card">
-                <h4>美術部</h4>
-                <p>絵画・立体作品の制作</p>
-            </a>
-            <!-- 5: 郷土史研究会 -->
-            <a href="club/history.html" class="club-card">
-                <h4>郷土史研究会</h4>
-                <p>地域の伝承と学園の歴史調査</p>
-            </a>
 
-            <!-- 6: 空白部分（秘密の入り口） -->
-            <div class="hidden-trigger" onclick="location.href='club/h-s-08.html'">
-                <!-- 何も表示しない。背景と同じ。 -->
-            </div>
+    <!-- 文化部：5個 + 隠し1個 -->
+    <h3>文化部</h3>
+    <div class="club-grid">
+        <div class="club-card">
+            <a href="club/brass.html" class="club-name">吹奏楽部</a>
+            <div class="club-theme">一つの音色に全生徒の想いを乗せて</div>
         </div>
+        <div class="club-card">
+            <a href="club/science.html" class="club-name">科学部</a>
+            <div class="club-theme">理論に裏打ちされた知的好奇心の探求</div>
+        </div>
+        <div class="club-card">
+            <a href="club/tea.html" class="club-name">茶道部</a>
+            <div class="club-theme">伝統が培う和の心と、おもてなしの作法</div>
+        </div>
+        <div class="club-card">
+            <a href="club/art.html" class="club-name">美術部</a>
+            <div class="club-theme">自由な発想による、唯一無二の自己表現</div>
+        </div>
+        <div class="club-card">
+            <a href="club/history.html" class="club-name">郷土史研究会</a>
+            <div class="club-theme">この土地の歩みと、語り継がれる伝承の調査</div>
+        </div>
+
+        <!-- 6番目の空白：隠しトリガー -->
+        <div class="hidden-trigger" onclick="location.href='club/h-s-08.html'"></div>
     </div>
-</div>
 </div>
 
 <div id="level-indicator">SECURITY CLEARANCE: LEVEL 0</div>
+
 <script src="js/search.js"></script>
 </body>
 </html>
