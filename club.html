@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>部活動紹介 - 私立( )学園</title>
+    <style>
+        /* index.htmlと共通のデザイン */
+        body { font-family: "serif"; background-color: #f8f9fa; color: #333; margin: 0; padding-bottom: 100px; }
+        header { background-color: #002147; color: white; padding: 20px; text-align: center; }
+        nav { background: #f1f1f1; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #002147; position: sticky; top: 0; z-index: 100; }
+        .nav-links a { margin-right: 20px; text-decoration: none; color: #002147; font-weight: bold; }
+        .search-box { display: flex; }
+        .container { max-width: 900px; margin: 30px auto; padding: 40px; background: white; }
+        
+        .club-section { margin-bottom: 40px; }
+        .club-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .club-card { border: 1px solid #ddd; padding: 15px; text-align: center; background: #fafafa; }
+        .club-card h4 { margin: 0 0 10px 0; color: #002147; border-bottom: 1px solid #002147; }
+        
+        #level-indicator { position: fixed; bottom: 20px; right: 20px; background: rgba(0, 33, 71, 0.9); color: #fff; padding: 10px 20px; border-radius: 5px; border-left: 5px solid #ff0000; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+<header><h1>私立( )学園</h1></header>
+
+<nav>
+    <div class="nav-links">
+        <a href="index.html">MAIN</a>
+        <a href="staff.html">教職員紹介</a>
+        <a href="educational.html">教育理念</a>
+        <a href="club.html">部活動</a>
+        <a href="faq.html">FAQ</a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="資料を検索...">
+        <button onclick="executeSearch()">検索</button>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>部活動・同好会</h2>
+    <p>文武両道を掲げる当
