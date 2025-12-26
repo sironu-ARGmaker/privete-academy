@@ -105,51 +105,7 @@
 <div id="level-indicator">SECURITY CLEARANCE: LEVEL 0</div>
 
 <!-- ここからコピー -->
-<script>
-    function executeSearch() {
-        // 1. 入力された値を取得
-        const input = document.getElementById('searchInput').value.trim();
-        
-        // 2. 空っぽなら何もしない
-        if (!input) return;
-
-        // 3. 空白（全角・半角）で区切って配列にする（2ワード検索対応）
-        const words = input.replace(/　/g, " ").split(" ");
-
-        // --- 検索ロジック ---
-
-        // 【レベル1：武田悠馬】
-        if (words.length === 1 && words[0] === "武田悠馬") {
-            // index.htmlと同じ階層にあるはずなので、パスに注意
-            window.location.href = "7a2f9k1/index.html"; 
-            return;
-        }
-
-        // 【レベル2：隠し教員のID】
-        if (words.length === 1 && words[0] === "teacher-08-X15J9") {
-            window.location.href = "staff/teacher-08-X15J9/index.html";
-            return;
-        }
-
-        // 【2ワード検索の例：地下 儀式】
-        if (words.length >= 2 && words.includes("地下") && words.includes("儀式")) {
-            // secretフォルダなどを作った場合
-            window.location.href = "secret/ritual/index.html";
-            return;
-        }
-
-        // --- すべて外れた場合は「検索失敗ページ」へ ---
-        // staff.htmlは一番上の階層にいる前提です
-        window.location.href = "search_notfound.html?q=" + encodeURIComponent(input);
-    }
-
-    // エンターキーでも検索できるようにする（おまけの親切機能）
-    document.getElementById('searchInput').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            executeSearch();
-        }
-    });
-</script>
+<script src="js/search.js"></script>
 <!-- ここまでコピー -->
 </body>
 </html>
